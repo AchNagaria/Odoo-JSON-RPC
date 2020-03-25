@@ -1,14 +1,18 @@
+"""
+Perintah ini untuk meng-inport Class ODOO di libarary odoorpc
+"""
 from odoorpc import ODOO
 
 """
-Class kontakAPI ini berfungsi sebagai koneksi server ke Odoo, dan untuk mengimplementasikan objek Model dan Recordset, 
-untuk modelnya menggunakan res.partner yang disimpan dalam atribut self.model
+Class kontakAPI ini berfungsi untuk melakukan koneksi server ke Odoo dan 
+mengimplementasikan objek Model dan Recordset untuk res.partner yang 
+disimpan dalam atribut self.model
 """
 class kontakAPI():
 
     """
-    def__init__ adalah konstruktor, 
-    konstruktor sendiri adalah method khusus yang akan dijalankan secara otomatis pada saat sebuah objek dibuat
+    def __init__ adalah konstruktor, yaitu method khusus yang akan dijalankan 
+    secara otomatis pada saat sebuah objek dibuat
     """
     def __init__(self, srv, port, db, user, pwd): 
         """
@@ -26,27 +30,25 @@ class kontakAPI():
             self.model,
             method, *arg_list, **kwarg_dict)
 
-    def search_read(self, text=None): #Fungsinya : agar metode ini dapat menerima ID/nama kontak yang dicari
+    def search_read(self, text=None): #Metode ini menerima ID dan nama kontak yang akan dicari 
         domain = [('name','ilike', text)] if text else []
         fields = ['id', 'name']
         return self.Model.search_read(domain or [], fields)
 
     
-    def create(self, name):   #Fungsinya :agar metode ini dapat membuat kontak baru dengan nama yang diberikan
+    def create(self, name):   #Metode ini difunakan untuk membuat kontak baru dengan nama yang diberikan
         vals = {'name': name}
         return self.Model.create(vals)
     
     
-    def write(self, name, id):  #Fungsinya : untuk dapat melakukan aktivitas/menulis didalam kontak
+    def write(self, name, id):  #Metode ini digunakan untuk dapat menulis ke dalam kontak
         vals = {'name': name}
         self.Model.write(id, vals)
 
    
-    def unlink(self, id): #Fungsinya : untuk menghapus ID dari kontak
+    def unlink(self, id): #Berfungsi untuk menghapus ID dari kontak
         return self.Model.unlink(id)
    
-
-
 if __name__ == '__main__':
     srv, port, db = '192.168.56.105', 8012, 'Nagaria'
     user, pwd = 'ach.nagaria@gmail.com', 'agam12345'

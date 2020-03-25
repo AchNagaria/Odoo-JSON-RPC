@@ -23,9 +23,10 @@ api = kontakAPI(srv, port, db, user, pwd)
 
 
 """
-Di sini kami menggunakan metode kontakAPI.search_read () untuk mengambil daftar catatan kontak dari server, 
-kami kemudian mengulangi setiap elemen dalam daftar dan mencetaknya, 
-kita gunakan Python string formatting untuk menyajikan setiap catatan kontak kepada pengguna.
+Di sini kami menggunakan metode kontakAPI.search_read() untuk 
+mengambil daftar catatan kontak dari server, kami kemudian mengulangi 
+setiap elemen dalam daftar dan mencetaknya, kita gunakan Python string formatting 
+untuk menyajikan setiap catatan kontak kepada pengguna.
 """
 if args.command == 'list':
     text = args.params[0] if args.params else None
@@ -34,23 +35,27 @@ if args.command == 'list':
         print('%(id)d %(name)s' % k)
 
 """
-Di sini kita hanya perlu memanggil metode write dan menunjukkan hasilnya  kepada end user.
+Untuk menambahkan kontak kita menggunakan method api.create()
 """
 if args.command == 'add':
     for name in args.params:
         new_id = api.create(name)
-        print('k added with ID %d.' % new_id)
+        print('Contact added with ID %d.' % new_id)
 
-
+"""
+Untuk men-set/edit nama kontak yang sudah ada kita menggunakan method api.write()
+"""
 if args.command == 'set':
     if len(args.params) != 2:
-        print("set command requires a name and ID.")
+        print("Set command requires a name and ID.")
     else:
         k_id, name = int(args.params[0]), args.params[1]
         api.write(name, k_id)
-        print('name set for k ID %d.' % k_id)
-
+        print('Name set for ID %d.' % k_id)
+"""
+Untuk menghapus kontak yang sudah ada kita menggunakan method api.unlink()
+"""
 if args.command == 'del':
     for param in args.params:
         api.unlink(int(param))
-        print('k with ID %s was deleted.' % param)
+        print('Contact with ID %s was deleted.' % param)
