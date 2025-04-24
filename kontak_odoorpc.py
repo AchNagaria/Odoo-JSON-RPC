@@ -51,7 +51,7 @@ class kontakAPI():
    
 if __name__ == '__main__':
     srv, port, db = '192.168.56.105', 8012, 'Nagaria'
-    user, pwd = 'ach.nagaria@gmail.com', 'agam12345'
+    user, pwd = 'email', 'pwd'
     api = LibraryAPI(srv, port, db, user, pwd)
     from pprint import pprint
     pprint(api.search_read())
